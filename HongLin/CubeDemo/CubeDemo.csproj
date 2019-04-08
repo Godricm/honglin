@@ -194,7 +194,6 @@
     </Content>
     <Content Include="Areas\School\Views\Link\Info.cshtml" />
     <Content Include="Areas\School\Views\Link\Welcome.cshtml" />
-    <Content Include="Entity\XCoder.log" />
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Ace_Layout_Nav.cshtml">
       <Generator>RazorGenerator</Generator>

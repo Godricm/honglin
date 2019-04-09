@@ -49,7 +49,4 @@ bld/
 /WebTest/wwwroot
 /WebTest/Areas/School/Models/Config
 /VuejsApp/node_modules
-/Web.Vue/wwwroot
-/CubeDemo/Config
-/CubeDemo/Content
-/CubeDemo/Plugins
+/Web.Vue/wwwroot 

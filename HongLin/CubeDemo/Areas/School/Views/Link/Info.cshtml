@@ -16,6 +16,8 @@
 
     <!-- 基本样式 -->
     <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/plugins/icheck/skins/square/blue.css" rel="stylesheet" />
+    <link href="~/Content/DateTimePicker/bootstrap-datetimepicker.css" rel="stylesheet" />
     <!-- 自定义样式-->
     <link href="~/Content/Cube.css" rel="stylesheet" />
     <!-- 仅用于过渡期兼容-->
@@ -232,10 +234,10 @@
 
 
                     <!-- Logo-->
-                    <div class="row text-center">
-                        <i class="glyphicon glyphicon-cloud login-logo center-block" style="display: inline-block;"></i>
-                        @*<span style="display: inline-block;vertical-align: 56px;margin-left: 10px;font-size: 24px;">@SysConfig.Current.DisplayName</span>*@
-                    </div>
+                    @*<div class="row text-center">
+                         <i class="glyphicon glyphicon-cloud login-logo center-block" style="display: inline-block;"></i>
+                        <span style="display: inline-block;vertical-align: 56px;margin-left: 10px;font-size: 24px;">@SysConfig.Current.DisplayName</span>
+                                </div>*@
                     <!-- 登录-->
                     @using (Html.BeginForm("Submit", "Link", new { r = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "cube-login" }))
                     {
@@ -251,26 +253,23 @@
                             <i class="glyphicon glyphicon-phone"></i>
                         </div>
                         @*<div class="form-group">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                                    <input type="datetime" dateformat="yyyy-mm-dd hh:ii:ss" class="form-control form_datetime" autocomplete="off" id="mobile" name="accessdate" placeholder="访问日期">
-
+                                <div class="input-append date form_datetime">
+                                    <input size="16" type="text" value="" readonly>
+                                    <span class="add-on"><i class="icon-th"></i></span>
                                 </div>
-
                             </div>*@
+                        <input type="hidden" name="accesstype" />
                         <div class="form-group">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="accesstype" id="accesstype1" value="1" checked>
-                                    需要专车接送
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="accesstype" id="accesstype2" value="2">
-                                   自驾
-                                </label>
-                            </div>
+                            <ul class="list-inline">
+                                <li>
+                                    <input tabindex="11" type="radio" id="square-radio-1" data-value="1" name="accesstypeRadio">
+                                    <label for="square-radio-1">需要专车接送</label>
+                                </li>
+                                <li>
+                                    <input tabindex="12" type="radio" id="square-radio-2" data-value="2" name="accesstypeRadio">
+                                    <label for="square-radio-2">自驾&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                                </li>
+                            </ul>
                         </div>
                         <div class="form-group text-center">
 
@@ -285,11 +284,31 @@
     <!-- JQuery作为一等公民，页面内部随时可能使用 -->
     <script src="~/Content/js/jquery-2.1.3.min.js"></script>
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/DateTimePicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/plugins/icheck/icheck.min.js"></script>
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
       <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+        $(document).ready(function () {
+            $('input').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+            $('input').on('ifChecked', function (event) {
+                $("input[name='accesstype']").val($(this).attr("data-value"));
+            });
 
+            $(".form_datetime").datetimepicker({
+                format: "yyyy-MM-dd",
+                autoclose: true,
+                todayBtn: true,
+                pickerPosition: "bottom-left"
+            });
+        });
+    </script>
 </body>
 </html>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNetCore.Mvc;
 using NewLife.Cube;
@@ -35,7 +37,7 @@ namespace CubeDemo.Areas.School.Controllers
         /// <returns></returns>
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Submit(String username, String mobile)
+        public ActionResult Submit(String username, String mobile,int accessType=2)
         {
             try
             {
@@ -45,7 +47,8 @@ namespace CubeDemo.Areas.School.Controllers
                 var customerLink = new CustomerLink()
                 {
                     Name = username,
-                    Mobile = mobile
+                    Mobile = mobile,
+                    AccessType=accessType
                 };
 
                 customerLink.Insert();
@@ -53,6 +56,7 @@ namespace CubeDemo.Areas.School.Controllers
             catch (ArgumentException aex)
             {
                 ModelState.AddModelError(aex.ParamName, aex.Message);
+                return View("Info", ModelState);
             }
 
             return View("Welcome");
@@ -94,6 +98,24 @@ namespace CubeDemo.Areas.School.Controllers
             }
 
             return JsonRefresh("共{1}[{0}]个意向客户".F(count, isEnable ? "联系" : "重新联系"));
+        }
+
+
+        [AllowAnonymous]
+        public ActionResult QrCode()
+        {
+            //生成二维码 
+            QRCode.RQCodeClass rqClass = new QRCode.RQCodeClass();
+            string url = HttpRuntime.BinDirectory + "LinkInfo.jpg";
+            Bitmap bitmap = rqClass.GetCreateQRCodeImg("http://localhost:2034/School/Link/Info", 700, 3);
+            bitmap.Save(url);
+            //string strPath = HttpContext.Server.MapPath("main_2.jpg");
+            //Bitmap insertImg = rqClass.GetCreateQRCodeInsertSmallImg("http://www.baidu.com", strPath, 700, 3);
+            //insertImg.Save(HttpRuntime.BinDirectory + "LinkInfo.jpg", System.Drawing.Imaging.ImageFormat.Jpeg);
+
+            bitmap.Dispose();
+            //insertImg.Dispose(); 
+            return Json(url,JsonRequestBehavior.AllowGet);
         }
     }
 }

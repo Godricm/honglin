@@ -23,8 +23,7 @@
             }
             <th class="text-center hidden-md hidden-sm hidden-xs"><a href="@Html.Raw(page.GetSortUrl("ID"))">编号</a></th>
             <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Name"))">姓名</a></th>
-            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Mobile"))">手机号码</a></th>
-            <th class="text-center" style="min-width:134px;"><a href="@Html.Raw(page.GetSortUrl("AccessDate"))">访问日期</a></th>
+            <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Mobile"))">手机号码</a></th> 
             <th class="text-center" title="是否联系"><a href="@Html.Raw(page.GetSortUrl("IsLink"))">是否联系</a></th>
             <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("AccessDate"))">访问方式</a></th>
             <th class="text-center"><a href="@Html.Raw(page.GetSortUrl("Remark"))">说明</a></th>
@@ -47,8 +46,7 @@
             }
             <td class="text-center hidden-md hidden-sm hidden-xs">@entity.ID</td>
             <td>@entity.Name</td>
-            <td>@entity.Mobile</td>
-            <td>@entity.AccessDate</td> 
+            <td>@entity.Mobile</td> 
             <td class="text-center">
                 <i class="glyphicon glyphicon-@(entity.IsLink ? "ok" : "remove")" style="color: @(entity.IsLink ? "green" : "red");"></i>
             </td>
